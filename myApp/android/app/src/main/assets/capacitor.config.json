@@ -1,0 +1,7 @@
+{
+  "appId": "begou.hans.fluter",
+  "appName": "begou.hans.fluter",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist/myApp"
+}

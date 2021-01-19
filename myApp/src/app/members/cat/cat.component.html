@@ -1,0 +1,176 @@
+<app-header></app-header>
+<div class="wrapper">
+  <div class="container-fluid">
+    <div class="page-title-alt-bg"></div>
+    <div class="page-title-box" style="top: 20px">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="simpleinput"><span style="font-weight: bold">{{stack.name | titlecase}}</span>   >   <span>{{cat.name | titlecase}}</span></label>
+        <div class="col-8">
+          <input type="text" style="border-radius: 20px" class="form-control" id="simpleinput" placeholder="Recherche...">
+        </div>
+        <div class="col-2">
+          <button type="button" (click)="openCatModal()" class="btn btn-primary btn-rounded waves-effect waves-light width-md">Ajouter</button>
+        </div>
+      </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+      <div *ngFor="let w of wids; index as i" class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+        <div class="card-box">
+          <div class="dropdown float-right">
+            <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
+              <i class="mdi mdi-dots-horizontal"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <!-- item-->
+              <a href="{{wid.desc}}" target="_blank" class="dropdown-item">Telecharger</a>
+              <!-- item-->
+              <a href="javascript:void(0);" (click)="go(w.id)" class="dropdown-item">Modifier</a>
+              <!-- item-->
+              <a href="javascript:void(0);" (click)="del(i, w.id)" class="dropdown-item">Supprimer</a>
+                <!-- item-->
+              <a href="javascript:void(0);" class="dropdown-item">Le  {{w.createdAt |date:'shortDate'}}</a>
+                <!-- item-->
+              <a href="javascript:void(0);"  class="dropdown-item">{{w.user.name | uppercase}}</a>
+            </div>
+          </div>
+          <h4 class="header-title mb-3">
+            <button type="button"
+                      data-toggle="modal" data-target=".getMod" class="btn btn-light btn-rounded waves-effect width-md">{{w.name | titlecase}}</button>
+          </h4>
+          <div class="chartjs-chart high-performing-product">
+            <!--<img [src]="sanitize(w.photo_url)" class="rounded" style="width: 100%; height: 100%">-->
+            <ngx-image-viewer  [src]="sanitiz(w.photo_url)"  [(index)]="index" ></ngx-image-viewer>
+          </div>
+        </div> <!-- end card-box-->
+        <div class="modal fade getMod" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="myExtraLargeModalLabel">{{w.name | titlecase}}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              </div>
+              <div class="modal-body myScroll">
+                <h4 class="header-title mb-4">
+                  <button type="button" data-dismiss="modal" aria-hidden="true"
+                          data-toggle="modal" data-target=".addMod" (click)="change(w)" class="btn btn-success btn-rounded waves-effect width-md">Ajouter</button>
+                </h4>
+                <mat-tab-group>
+                  <mat-tab *ngFor="let c of w.contenues; index as ic">
+                    <ng-template mat-tab-label>
+                     {{c.title}}
+                    </ng-template>
+                    <div class="container">
+                     <div class="row" style="margin-bottom: 15px; margin-top: 5px">
+                       <div style="margin-right: 15px">
+                         <button type="button"
+                                 (click)="upGo(c.id)" class="btn btn-primary btn-rounded waves-effect width-md">Modifier</button>
+                       </div>
+                       <div>
+                         <button type="button" (click)="delCont(c)"
+                                 class="btn btn-danger btn-rounded waves-effect width-md" data-dismiss="modal" aria-hidden="true">Supprimer</button>
+                       </div>
+                     </div>
+                    </div>
+                    <app-editor [code]="c.code" [img]="c.photo_url"></app-editor>
+                  </mat-tab>
+                </mat-tab-group>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div> <!-- end col -->
+    </div><!-- end row -->
+  </div> <!-- end container -->
+</div>
+
+
+<!--Ajout d'une catégorie -->
+<div id="custom-modal-wid" class="modal-demo">
+  <button type="button" class="close" onclick="Custombox.modal.close();">
+    <span>&times;</span><span class="sr-only">Close</span>
+  </button>
+  <h4 class="custom-modal-title">Ajouter un élément</h4>
+  <div class="custom-modal-text">
+    <form #widForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+      <div class="col-md-12">
+        <p class="mb-2 mt-3 text-muted">
+          Vous pouvez ajouter une ou plusieurs catégories en sélectionant le
+          <code>
+            parent
+          </code>
+          de celle ci, ensuite validez!
+        </p>
+        <input type="text" style="border-radius: 20px" name="name" [(ngModel)]="wid.name" class="form-control" placeholder="Donnez un titre">
+      </div> <!-- end col -->
+      <div style="margin-bottom: 5px"></div>
+      <div class="col-md-12">
+        <input type="text" style="border-radius: 20px" name="desc" [(ngModel)]="wid.desc" class="form-control" placeholder="Marquez un lien">
+      </div> <!-- end col -->
+      <div style="margin-bottom: 5px"></div>
+      <div class="col-md-12">
+        <ngx-dropzone class="parrainzone" [label]="'Drag and Drop file here or Click!'" [accept]="'image/png,image/jpg,image/gif'" [showPreviews]="true"
+                      [preserveFiles]="false" #dropzone (filesAdded)="onFilesAdded($event)" (filesRejected)="onFilesRejected($event)"
+                      [multiple]="true" [disabled]="!wid.name || !wid.desc" ></ngx-dropzone>
+      </div>
+      <div style="margin-bottom: 5px"></div>
+      <div class="row">
+        <div class="col-md-6">
+          <a class="btn btn-block btn-danger waves-effect waves-light" (click)="dropzone.reset()" (click)="myFunc()" >Vider</a>
+        </div>
+        <div class="col-md-6">
+          <button type="submit" [disabled]="posting || !wid.name || !wid.desc" class="btn btn-block btn-success waves-effect waves-light">Valider</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!--Ajout d'un contenue -->
+<div class="modal fade addMod" tabindex="-1" role="dialog" aria-labelledby="addMod" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="addMod">{{actuCat.name | titlecase}}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body myScroll">
+        <form #addContForm="ngForm" novalidate (ngSubmit)="onContSubmit()">
+          <div class="col-md-12">
+            <p class="mb-2 mt-3 text-muted">
+              Ajouter le nom de la
+              <code>
+                page
+              </code>
+              et le code de celle ci!
+            </p>
+            <input type="text" style="border-radius: 20px" name="title" [(ngModel)]="cont.title" class="form-control" placeholder="Donnez un titre">
+          </div> <!-- end col -->
+          <div style="margin-bottom: 5px"></div>
+          <div class="col-md-12">
+            <ngx-dropzone class="parrainzone" [label]="'Drag and Drop file here or Click!'" [accept]="'image/png,image/jpg,image/gif'" [showPreviews]="true"
+                          [preserveFiles]="false" #dropzone2 (filesAdded)="onContFilesAdded($event)" (filesRejected)="onContFilesRejected($event)"
+                          [multiple]="true" [disabled]="!cont.title" ></ngx-dropzone>
+          </div>
+          <div style="margin-bottom: 5px"></div>
+          <div class="col-md-12">
+            <div class="code-editor" #codeEditor></div>
+          </div>
+          <div style="margin-bottom: 5px"></div>
+          <div class="row">
+            <div class="col-md-6">
+              <a class="btn btn-block btn-danger waves-effect waves-light" (click)="resDrop()">Vider</a>
+            </div>
+            <div class="col-md-6">
+              <button type="submit" [disabled]="posting || !cont.title || !cont.photo_url" class="btn btn-block btn-success waves-effect waves-light">Valider</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+

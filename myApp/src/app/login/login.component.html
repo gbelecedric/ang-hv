@@ -1,0 +1,76 @@
+<div class="bg">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-8 col-xl-8">
+        <div class="card" style="margin-top: 75px">
+
+          <div class="card-body p-4">
+
+            <div class="text-center mb-4">
+              <a>
+                <span><img src="assets/images/flu.jpg" class="rounded" alt="" height="160"></span>
+              </a>
+            </div>
+
+            <form [formGroup]="loginForm" (ngSubmit)="subForm()" class="pt-2">
+
+              <div class="form-group mb-3">
+                <label for="email">Email address</label>
+                <input class="form-control" id="email"
+                       [class.is-invalid]="loginForm.get('email').invalid && loginForm.get('email').touched"
+                       formControlName="email" type="email" placeholder="Enter your email">
+              </div>
+              <div class="form-group mb-3" *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched">
+                <div class="alert alert-danger" *ngIf="loginForm.get('email').errors?.required" role="alert">
+                  Ce champs est <strong>requis</strong>!
+                </div>
+                <div class="alert alert-danger" *ngIf="loginForm.get('email').errors?.minlength" role="alert">
+                  Ce champs doit contenir au moins <strong>5</strong>charactères!
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <a class="text-muted float-right"><small>Forgot your password?</small></a>
+                <label for="password">Password</label>
+                <input class="form-control" formControlName="pass" type="password" id="password"
+                       [class.is-invalid]="loginForm.get('pass').invalid && loginForm.get('pass').touched"
+                       placeholder="Enter your password">
+              </div>
+              <div class="form-group mb-3" *ngIf="loginForm.get('pass').invalid && loginForm.get('pass').touched">
+                <div class="alert alert-danger" role="alert" *ngIf="loginForm.get('pass').errors?.required">Ce champs est requis!</div>
+                <div class="alert alert-danger" role="alert" *ngIf="loginForm.get('pass').errors?.minlength">Ce champs doit contenir au moins 8 charactères!</div>
+              </div>
+
+              <div *ngIf="msg" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+                {{msg}}
+              </div>
+
+              <div class="form-group mb-0 text-center">
+                <button class="btn btn-success btn-block"
+                        [disabled]="loginForm.get('pass').invalid || loginForm.get('email').invalid || stat" type="submit"> Log In </button>
+              </div>
+
+            </form>
+
+            <div class="row mt-3">
+              <div class="col-12 text-center">
+                <p class="text-muted mb-0">Don't have an account? <a href="pages-register.html" class="text-dark ml-1"><b>Sign Up</b></a></p>
+              </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+
+          </div> <!-- end card-body -->
+        </div>
+        <!-- end card -->
+
+      </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+  </div>
+  <mat-card-footer>
+    <p class="text-center mb-8" style="color: white">2019 ©GENESIS. Powered by <a href="https://hansbegou.yn.fr/">Hans-Vernier Begou</a></p>
+  </mat-card-footer>
+</div>

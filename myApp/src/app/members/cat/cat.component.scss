@@ -1,0 +1,35 @@
+ngx-dropzone {
+  margin: 20px;
+
+  &.parrainzone {
+    height: 250px;
+    background: #333;
+    border: 0px dashed white;
+    border-radius: 5px;
+    font-size: 20px;
+
+    &.hovered {
+      border-style: solid;
+    }
+  }
+}
+.ngx-codemirror {
+  border: 1px solid #ccc;
+}
+div.code-editor {
+
+  // overflow-y: scroll;
+  // sscroll-behavior: smooth;
+}
+.myScroll{
+  display: block;
+  height: 500px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+.act{
+  border: 3px solid #136eb4;
+  padding-right: 3px;
+  padding-left: 3px;
+
+}

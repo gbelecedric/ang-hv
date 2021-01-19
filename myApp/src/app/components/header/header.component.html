@@ -1,0 +1,143 @@
+<header id="topnav">
+
+  <!-- Topbar Start -->
+  <div class="navbar-custom">
+    <div class="container-fluid">
+      <ul class="list-unstyled topnav-menu float-right mb-0">
+
+        <li class="dropdown notification-list">
+          <!-- Mobile menu toggle-->
+          <a class="navbar-toggle nav-link">
+            <div class="lines">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </a>
+          <!-- End mobile menu toggle-->
+        </li>
+
+        <li class="dropdown notification-list">
+          <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+            <img *ngIf="user.photo_url" src="{{ user.photo_url}}" alt="user-image" class="rounded-circle">
+            <img *ngIf="!user.photo_url" src="assets/images/users/avatar-4.jpg" alt="user-image" class="rounded-circle">
+            <span class="pro-user-name ml-1">
+                                   {{user.firstname}} {{user.name | titlecase }} <i class="mdi mdi-chevron-down"></i>
+                                </span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+            <!-- item-->
+            <div class="dropdown-item noti-title">
+              <h6 class="m-0">
+                Welcome !
+              </h6>
+            </div>
+
+            <a href="javascript:void(0);" class="dropdown-item notify-item">
+              <i class="dripicons-user"></i>
+              <span>My Account</span>
+            </a>
+            <div class="dropdown-divider"></div>
+
+            <a (click)="logout()" class="dropdown-item notify-item">
+              <i class="dripicons-power"></i>
+              <span>Logout</span>
+            </a>
+
+          </div>
+        </li>
+      </ul>
+
+      <ul class="list-unstyled menu-left mb-0">
+        <li class="float-left logo-box">
+          <a routerLink="/home" class="logo">
+            <span class="logo-lg">
+                <img src="assets/images/flu.jpg" alt="" class="rounded" style="width: 90px; height: 45px">
+            </span>
+            <span class="logo-sm">
+              <img src="assets/images/flu.jpg" alt="" height="24">
+            </span>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+  <!-- end Topbar -->
+
+  <div class="topbar-menu">
+    <div class="container-fluid">
+      <div id="navigation">
+        <!-- Navigation Menu-->
+        <ul class="navigation-menu">
+
+          <li class="has-submenu">
+            <a routerLink="members/dashboard" routerLinkActive="active">
+              <i class="dripicons-meter"></i>Dashboard
+            </a>
+          </li>
+
+          <li class="has-submenu" *ngFor="let sta of stack; index as i">
+            <a routerLinkActive="acti"> <i class="{{sta.icon}}"></i>{{sta.name}} <div class="arrow-down"></div></a>
+            <ul class="submenu megamenu">
+              <li *ngFor="let st of sta.cats">
+                <ul *ngFor="let s of st">
+                  <li>
+                    <a routerLink="/members/category/{{s.id}}" routerLinkActive="acti"><button type="button" class="btn btn-outline-dark btn-rounded waves-effect waves-light width-md">{{s.name}}</button></a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="has-submenu">
+            <a (click)="my()" data-overlaySpeed="100">
+              <button type="button" class="btn btn-outline-success btn-rounded waves-effect waves-light width-md">
+                <i class="mdi mdi-layers-plus"></i>  Ajouter
+              </button>
+            </a>
+          </li>
+        </ul>
+        <!-- End navigation menu -->
+
+        <div class="clearfix"></div>
+      </div>
+      <!-- end #navigation -->
+    </div>
+    <!-- end container -->
+  </div>
+  <!-- end navbar-custom -->
+
+</header>
+<div id="custom-modal" class="modal-demo">
+  <button type="button" class="close" onclick="Custombox.modal.close();">
+    <span>&times;</span><span class="sr-only">Close</span>
+  </button>
+  <h4 class="custom-modal-title">Ajouter un élément</h4>
+  <div class="custom-modal-text">
+    <form #userForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+      <div class="col-md-12">
+        <p class="mb-2 mt-3 text-muted">
+          Vous pouvez ajouter une ou plusieurs catégories en sélectionant le
+          <code>
+            parent
+          </code>
+          de celle ci, ensuite validez!
+        </p>
+
+        <select class="selectpicker" style="border-radius: 20px" name="stackId" [(ngModel)]="catForm.stackId" data-style="btn-light btn-rounded">
+          <option *ngFor="let sta of stack;" value="{{sta.id}}">{{sta.name}}</option>
+        </select>
+      </div> <!-- end col -->
+      <div class="col-md-12">
+        <div class="card-box">
+          <div class="tags-default">
+            <input type="text" name="cat" max="20" min="5" style="border-radius: 20px" [(ngModel)]="catForm.cat" data-role="tagsinput" placeholder="Ajouter..."/>
+          </div>
+        </div> <!-- end card-box -->
+      </div>
+      <button type="submit" [disabled]="!catForm.stackId || !catForm.cat" class="btn btn-block btn-success waves-effect waves-light">Valider</button>
+    </form>
+
+  </div>
+</div>
+

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">begou.hans.fluter</string>
+    <string name="title_activity_main">begou.hans.fluter</string>
+    <string name="package_name">begou.hans.fluter</string>
+    <string name="fileprovider_authority">begou.hans.fluter.fileprovider</string>
+    <string name="custom_url_scheme">begou.hans.fluter</string>
+</resources>
