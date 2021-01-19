@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Liste des Evenements</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- <div class="bg-profile" text-center>
+    <img src="../../assets/icon/logoPCN.png">
+  </div> -->
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-sm" style="font-size:0.5em;">
+        <thead class="thead-light">
+          <tr>
+            <th>N°</th>
+            <th>Evenements</th>
+            <th>Montant</th>
+            <th>Date Evenement</th>
+            <th>Date Debut Cot.</th>
+            <th>Date Fin Cot.</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let ev of data; index as i">
+          <tr>
+            <th scope="row">{{i+1}}</th>
+            <td>{{ev.libelleEvent}}</td>
+            <td>{{ev.montantAcotiser}}</td>
+            <td>{{ev.dateEvent}}</td>
+            <td>{{ev.dateDebutCotisation}}</td>
+            <td>{{ev.dateFinCotisation}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ion-content>

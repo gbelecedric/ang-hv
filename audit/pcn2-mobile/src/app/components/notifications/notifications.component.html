@@ -1,0 +1,16 @@
+<ion-list no-padding no-margin>
+    <ion-list-header color="dark">
+      <ion-label class="fw700">Notifications</ion-label>
+      <ion-buttons>
+        <ion-button (click)="close()">
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-list-header>
+  <ion-item-group *ngFor="let notifications of notification">
+     <ion-item color="primary" class="text-20" (click)=" presentModal(notifications.evenement.id, notifications.id)" >
+      <ion-icon name="mail" color="light" slot="start"></ion-icon>
+      <ion-label >{{notifications.contenuNotif}}</ion-label>
+    </ion-item>
+  </ion-item-group>
+</ion-list>

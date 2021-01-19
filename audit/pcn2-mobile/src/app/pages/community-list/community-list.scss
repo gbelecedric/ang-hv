@@ -1,0 +1,25 @@
+.icon-lg
+{
+   height: 23px;
+   width: 23px;
+   margin-left: 26px;
+   margin-right: 20px;
+}
+.card-body
+{
+-ms-flex:1 1 auto;
+flex:1 1 auto;
+padding:1.25rem
+}
+.table-responsive
+{
+    display:block;
+    width:100%;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch
+}
+.table-responsive>.table-bordered
+{border:0}
+.table{width:100%;margin-bottom:1rem;color:#212529;text-align: center;}.table td,.table th{padding:.75rem;vertical-align:top;border-top:1px solid #dee2e6}.table thead th{vertical-align:bottom;border-bottom:2px solid #dee2e6}.table tbody+tbody{border-top:2px solid #dee2e6}
+.table-sm td,.table-sm th{padding:.3rem}
+.thead-light th{color:yellow;background-color:#2f32a0;border-color:#dee2e6}

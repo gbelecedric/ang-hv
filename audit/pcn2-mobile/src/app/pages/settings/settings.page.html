@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Parametres</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="presentPopover($event)">
+        <ion-icon name = "more"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="user-profile bg-profile">
+     <ion-item class="bg-profile" lines="none">
+    <ion-avatar slot="start">
+      <img src="assets/icon/User_96px.png" class="user-avatar">
+    </ion-avatar>
+    <ion-label *ngIf="data">
+      <ion-text color="light">
+        <h2>
+          <strong>{{data.membre.nomMembre}} {{data.membre.prenomMembre}}</strong>
+        </h2>
+      </ion-text>
+      <ion-text color="tertiary">
+        <h3>
+          {{data.membre.emailMembre}}
+        </h3>
+      </ion-text>
+     
+    </ion-label>
+  </ion-item>
+      <ion-fab horizontal="end">
+        <ion-fab-button color="light" (click)="editProfile()" >
+          <ion-icon name="create"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+  </div>
+ 
+
+  <ion-list no-border>
+    <ion-list-header>
+      <ion-text color="dark">
+        <h5>General</h5>
+      </ion-text>
+    </ion-list-header>
+    <ion-item>
+      <ion-icon name="settings" slot="start" color="primary"></ion-icon>
+      <ion-label color="primary">Langue</ion-label>
+      <ion-select>
+        <ion-select-option >French</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item (click)="modifierPassword()">
+      <ion-icon name="bookmarks" slot="start" color="primary"></ion-icon>
+      <ion-label color="primary">Sécurité</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

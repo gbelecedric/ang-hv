@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start" (click)="home()">
+      <ion-icon name="arrow-round-back" class="icon-lg"></ion-icon>
+    </ion-buttons>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons> -->
+    <ion-title>Details Association</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-sm" style="font-size:0.5em;">
+        <thead class="thead-light">
+          <tr>
+            <th>N°</th>
+            <th>Libelle evenement</th>
+            <th>Date evenement</th>
+            <th>Montant cotisation</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let data of cotisEvent; index as i">
+          <tr>
+            <th scope="row">{{i+1}}</th>
+            <td >{{data.libelleEvent}}</td>
+            <td>{{data.dateEvent}}</td>
+            <td>{{data.montantCotis}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ion-content>

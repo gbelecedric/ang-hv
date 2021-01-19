@@ -1,0 +1,57 @@
+<ion-content padding class="animated fadeIn login auth-page">
+  <div class="theme-bg"></div>
+  <div class="auth-content">
+
+    <!-- Logo -->
+    <div padding-horizontal text-center class="animated fadeInDown">
+      <div class="logo">
+        <ion-img src="../../assets/icon/logoPCN.png"></ion-img>
+      </div>
+    </div>
+
+    <!-- Login form -->
+    <form [formGroup]="onLoginForm" class="list-form">
+      <ion-text color = "warning" *ngIf = "errorMessage">{{errorMessage}}</ion-text>
+      <ion-text color = "warning" *ngIf = "etat">{{etat}}</ion-text>
+      <ion-item no-padding class="animated fadeInUp">
+        <ion-label position="floating">
+          <ion-icon name="mail" item-start></ion-icon>
+          Email
+        </ion-label>
+        <ion-input color="secondary" type="email" formControlName="emailMembre"></ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="onLoginForm.get('emailMembre').touched && onLoginForm.get('emailMembre').hasError('required')">
+        <ion-text color="warning">
+          Saisie obligatoire
+        </ion-text>
+      </p>
+
+      <ion-item no-padding class="animated fadeInUp">
+        <ion-label position="floating">
+          <ion-icon name="lock" item-start></ion-icon>
+          Mot de passe
+        </ion-label>
+        <ion-input color="secondary" type="password" formControlName="passwordMembre"></ion-input>
+      </ion-item>
+      <p ion-text color="warning" class="text08" *ngIf="onLoginForm.get('passwordMembre').touched && onLoginForm.get('passwordMembre').hasError('required')">
+        <ion-text color="warning">
+          Saisie obligatoire
+        </ion-text>
+        </p>
+    </form>
+
+    <p text-right tappable (click)="forgotPass()" class="paz">
+      <ion-text color="light">
+        <strong>Mot de passe oublié?</strong>
+      </ion-text>
+    </p>
+
+    <div>
+      <ion-button icon-left size="medium" expand="full" shape="round" color="dark" (click)="connectUser()" [disabled]="!onLoginForm.valid" tappable>
+        <ion-icon name="log-in"></ion-icon>
+        Se connecter
+      </ion-button>
+    </div>
+  </div>
+
+</ion-content>

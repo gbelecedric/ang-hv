@@ -1,0 +1,61 @@
+import { NgModule } from '@angular/core';
+import { RouteReuseStrategy } from '@angular/router';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { IonicModule, IonicRouteStrategy, NavParams } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+
+// Modal Pages
+import { ImagePageModule } from './pages/modal/image/image.module';
+import { SearchFilterPageModule } from './pages/modal/search-filter/search-filter.module';
+
+// Components
+import { AjoutCommunityPageModule } from './pages/ajout-community/ajout-community.module';
+import { AddMemberPageModule } from './pages/add-member/add-member.module';
+import { EditCommunityPageModule } from './pages/edit-community/edit-community.module';
+
+
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { ActionPopComponent } from './../components/action-pop/action-pop';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { PopoverComponent } from './components/popover/popover.component';
+import { EventsPageModule } from './pages/events/events.module';
+import { Dialogs } from '@ionic-native/dialogs/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { DataPassProvider } from '../providers/data-pass/data-pass';
+import { MemberActionComponent } from './../components/member-action/member-action';
+
+
+
+@NgModule({
+  declarations: [AppComponent, NotificationsComponent, PopoverComponent, ActionPopComponent, MemberActionComponent],
+  imports: [
+    BrowserAnimationsModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    HttpClientModule,
+    ImagePageModule,
+    SearchFilterPageModule,
+    ReactiveFormsModule,
+    EventsPageModule,
+    FormsModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  entryComponents: [NotificationsComponent, PopoverComponent, ActionPopComponent, MemberActionComponent],
+  providers: [
+    StatusBar,
+    SplashScreen,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    LocalNotifications,
+    DataPassProvider,
+  ],
+  bootstrap: [AppComponent]
+})
+
+export class AppModule { }

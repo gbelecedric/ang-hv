@@ -1,0 +1,131 @@
+import { Component, OnInit } from '@angular/core';
+import { NavController, MenuController } from '@ionic/angular';
+import { ServiceService } from '../../service.service';
+import { ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup } from '@angular/forms';
+import { environment } from '../../../environments/environment';
+
+
+
+@Component({
+  selector: 'app-edit-community',
+  templateUrl: './edit-community.html',
+  styleUrls: ['./edit-community.scss'],
+})
+export class EditCommunityPage implements OnInit {
+
+  readonly = true;
+  association ;
+  id: any;
+  form = new FormGroup({
+    nomAsso: new FormControl('', [Validators.required]),
+    objetAsso: new FormControl('', [Validators.required]),
+    telAsso: new FormControl('', [Validators.required]),
+    emailAsso: new FormControl('', [Validators.required]),
+    ouvert: new FormControl('', []),
+    pays: new FormControl('', []),
+    ville: new FormControl('', []),
+    region: new FormControl('', []),
+    adresseAsso: new FormControl('', [Validators.required]),
+    condition: new FormControl('', []),
+    codePostalAsso: new FormControl('', [Validators.required]),
+    datePayAde: new FormControl('', [Validators.required]),
+    soldeMinAsso: new FormControl('', [Validators.required]),
+    soldeMinMembre: new FormControl('', [Validators.required]),
+    idAsso: new FormControl('', [Validators.required])
+  })
+
+  matcher;
+  listVille;
+  listPays;
+  listRegion;
+  role = false;
+  listeModePaiement: any;
+  deviseComplete: string = '';
+  symboleDevise: string = '';
+  modePay: any;
+  nomRegion: string;
+  nomPays: String;
+  namepays: string;
+  nameregion: string;
+  nameville: string;
+  choix: string;
+
+  choisirOuvert(theChoice) {
+    this.choix = theChoice;
+  }
+
+  edit() {
+    this.readonly = false;
+  }
+  cancel_edit() {
+    this.readonly = true;
+  }
+  editAsso() {
+    this.service.editAssociation(
+      this.association.communityId,
+      this.association.communityDTO.name,
+      this.association.communityDTO.communityAim, this.association.communityDTO.open, this.association.communityDTO.openDescription,
+      this.association.communityDTO.phoneNumber, this.association.communityDTO.email, this.association.communityDTO.street,
+      this.association.communityDTO.zipCode,
+      this.association.cityDTO.id,
+      this.association.communityDTO.pcnOrganizationId,
+    ).subscribe(res => {
+      this.navCtrl.navigateRoot('/home-result')
+    });
+  }
+
+
+  chargerListePays() {
+    this.service.getAllPay().subscribe(data => {
+      this.listPays = data['content'];
+
+    });
+  }
+
+  chargerListeRegion(idPays: string, currency: string, currencySymbol: string) {
+    this.service.getAllRegionById(idPays).subscribe(data => {
+      this.listRegion = data['content'];
+      // console.log(this.listRegion);
+      this.deviseComplete = currency;
+      this.symboleDevise = currencySymbol;
+      this.association.districtDTO.id = '';
+      this.association.cityDTO.id = '';
+    });
+  }
+
+  chargerListeVille(idRegion: string) {
+    this.service.getAllVilleById(idRegion).subscribe(data => {
+      this.listVille = data['content'];
+    });
+  }
+
+
+
+  constructor(private activatedRoute: ActivatedRoute,
+    private navCtrl: NavController,
+    private service: ServiceService, private menuCtrl: MenuController) {
+  }
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
+
+  ngOnInit() {
+    this.chargerListePays();
+    this.chargerListeModePaiement();
+    if (this.service.isConnected.role === environment.VALUES.PCN_ADMIN) {
+      this.role = true;
+    }
+
+  }
+  home() {
+    this.navCtrl.navigateForward('/home-results');
+  }
+
+    chargerListeModePaiement() {
+    this.service.getListModePaiement().subscribe(data => {
+      this.listeModePaiement = data;
+    });
+  }
+}

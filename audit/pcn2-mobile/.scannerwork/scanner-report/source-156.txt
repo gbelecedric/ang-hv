@@ -1,0 +1,124 @@
+import { Component, OnInit } from '@angular/core';
+import { NavController, MenuController } from '@ionic/angular';
+import { ServiceService } from './../../service.service';
+import { ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { environment } from './../../../environments/environment';
+
+
+
+@Component({
+  selector: 'app-ajout-community',
+  templateUrl: './ajout-community.html',
+  styleUrls: ['./ajout-community.scss'],
+})
+export class AjoutCommunityPage implements OnInit {
+
+  data: any;
+  idUser: any;
+  memberDetails;
+  choix = 1;
+  nomAssociation = new FormControl('', [Validators.required]);
+  dateAsso = new FormControl('', [Validators.required]);
+  objetAssociation = new FormControl('', [Validators.required]);
+  telAsso = new FormControl('', [Validators.required]);
+  emailAsso = new FormControl('', [Validators.required]);
+  ouvert = new FormControl('', []);
+  pays = new FormControl('', []);
+  ville = new FormControl('', []);
+  region = new FormControl('', []);
+  adresseAsso = new FormControl('', [Validators.required]);
+  condition = new FormControl('', []);
+  codePostalAsso = new FormControl('', [Validators.required]);
+  montantAde = new FormControl('', [Validators.required]);
+  datePayAde = new FormControl('', [Validators.required]);
+  soldeMinAsso = new FormControl('', [Validators.required]);
+  soldeMinMembre = new FormControl('', [Validators.required]);
+  justificatifPayAde = new FormControl('', [Validators.required]);
+  modePay = new FormControl('', [Validators.required]);
+  devise = new FormControl('', [Validators.required]);
+  coutPrestation = new FormControl('', [Validators.required]);
+  // matcher = new MyErrorStateMatcher();
+  listVille;
+  listPays;
+  listRegion;
+  role = false;
+  listeModePaiement: any;
+  deviseComplete = '';
+  symboleDevise = '';
+
+  saveAsso() {
+    environment.OTHER_VALUES.ramdomPass = Math.random().toString(36).slice(-8);
+    const password = environment.OTHER_VALUES.ramdomPass;
+    const notificationMessage = 'Ajout correctement éffectué';
+    this.service.saveAsso(this.nomAssociation.value, this.dateAsso.value,
+      this.objetAssociation.value, this.ouvert.value, this.condition.value,
+      this.telAsso.value, this.emailAsso.value, this.adresseAsso.value,
+      this.codePostalAsso.value, this.ville.value,
+      this.montantAde.value, this.datePayAde.value,
+      this.justificatifPayAde.value, this.modePay.value, this.deviseComplete, this.coutPrestation.value,
+      this.service.isConnected.pcnOrganization, password,
+
+    ).subscribe(res => {
+      // this.layoutUtilsService.showActionNotification(notificationMessage, MessageType.Delete);
+      // this.ktUploadFile.uploadFile(res['id'], 'CREATION_ASSO');
+    }, error => {
+        console.log(error);
+      });
+    }
+
+  choisirOuvert(theChoice) {
+      this.choix = theChoice;
+    }
+
+
+
+  constructor(private activatedRoute: ActivatedRoute,
+    private navCtrl: NavController,
+    private service: ServiceService, private menuCtrl: MenuController) {
+  }
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
+
+  ngOnInit() {
+    this.chargerListePays();
+    this.chargerListeModePaiement();
+    if (this.service.isConnected.role === environment.VALUES.PCN_ADMIN) {
+      this.role = true;
+    }
+
+  }
+  home() {
+    this.navCtrl.navigateForward('/home-results');
+  }
+
+  chargerListePays() {
+    this.service.getAllPay().subscribe(data => {
+      this.listPays = data['content'];
+      console.log(this.listPays);
+    });
+  }
+
+  chargerListeRegion(idPays: string, currency: string, currencySymbol: string) {
+    this.service.getAllRegionById(idPays).subscribe(data => {
+      this.listRegion = data['content'];
+      this.deviseComplete = currency;
+      this.symboleDevise = currencySymbol;
+      console.log(this.listRegion);
+    });
+  }
+
+  chargerListeVille(idRegion: string) {
+    this.service.getAllVilleById(idRegion).subscribe(data => {
+      this.listVille = data['content'];
+    });
+  }
+
+  chargerListeModePaiement() {
+    this.service.getListModePaiement().subscribe(data => {
+      this.listeModePaiement = data;
+    });
+  }
+}

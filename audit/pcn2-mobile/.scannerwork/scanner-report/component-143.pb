@@ -1,0 +1,1 @@
+ 2tsXÆhr/src/app/pages/details-asso/details-asso.page.ts

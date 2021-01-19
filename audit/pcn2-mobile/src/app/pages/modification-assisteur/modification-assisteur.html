@@ -1,0 +1,127 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-buttons slot="start" (click)="listeAssiteur()">
+			<ion-icon name="arrow-round-back" class="icon-lg"></ion-icon>
+		</ion-buttons>
+		<ion-title>Modifier l'assisteur</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="line-input" padding>
+	<ion-grid>
+		<form
+			[formGroup]="assisteur"
+			class="list-form"
+			(ngSubmit)="saveAssiteur()"
+			novalidate
+		>
+			<ion-item lines="full">
+				<ion-icon name="person" slot="start"></ion-icon>
+				<ion-label position="stacked">Nom de l'assisteur</ion-label>
+				<ion-input
+					formControlName="nomAssis"
+					type="text"
+					[(ngModel)]="Assisteur.name"
+					[class.invalid]="!assisteur.controls.nomAssis.valid && assisteur.controls.nomAssis.touched"
+					required
+				></ion-input>
+				<!-- Error messages -->
+
+				<p
+					ion-text
+					class="text08"
+					*ngIf="!assisteur.controls.nomAssis.valid && assisteur.controls.nomAssis.touched"
+				>
+					<ion-text color="warning">
+						le nom de l'assisteur est
+						<strong>requis</strong>
+					</ion-text>
+				</p>
+			</ion-item>
+
+			<ion-item lines="full">
+				<ion-icon name="home" slot="start"></ion-icon>
+				<ion-label position="stacked">Adresse de l'assisteur</ion-label>
+				<ion-input
+					formControlName="adressAssis"
+					type="test"
+					[(ngModel)]="Assisteur.street"
+					[class.invalid]="!assisteur.controls.adressAssis.valid && assisteur.controls.adressAssis.touched"
+					required
+				></ion-input>
+				<!-- Error messages -->
+				<p
+					ion-text
+					class="text08"
+					*ngIf="!assisteur.controls.adressAssis.valid && assisteur.controls.adressAssis.touched"
+				>
+					<ion-text color="warning">
+						l'adresse de l'assisteur est
+						<strong>requis</strong>
+					</ion-text>
+				</p>
+			</ion-item>
+
+			<ion-item lines="full">
+				<ion-icon name="call" slot="start"></ion-icon>
+				<ion-label position="stacked"
+					>Téléphone de l'assisteur</ion-label
+				>
+				<ion-input
+					formControlName="telAssis"
+					type="text"
+					[(ngModel)]="Assisteur.phoneNumber"
+					[class.invalid]="!assisteur.controls.telAssis.valid && assisteur.controls.telAssis.touched"
+					required
+				></ion-input>
+				<!-- Error messages -->
+				<p
+					ion-text
+					class="text08"
+					*ngIf="!assisteur.controls.telAssis.valid && assisteur.controls.telAssis.touched"
+				>
+					<ion-text color="warning">
+						le téléphone de l'assisteur est
+						<strong>requis</strong>
+					</ion-text>
+				</p>
+			</ion-item>
+
+			<ion-item lines="full">
+				<ion-icon name="mail" slot="start"></ion-icon>
+				<ion-label position="stacked">Email de l'assisteur</ion-label>
+				<ion-input
+					formControlName="email"
+					type="email"
+					[(ngModel)]="Assisteur.email"
+					[class.invalid]="!assisteur.controls.email.valid && assisteur.controls.email.touched"
+					required
+					[readonly]="true"
+				></ion-input>
+				<!-- Error messages -->
+				<p
+					ion-text
+					class="text08"
+					*ngIf="!assisteur.controls.email.valid && assisteur.controls.email.touched"
+				>
+					<ion-text color="warning">
+						l'email de l'assisteur est
+						<strong>requis</strong>
+					</ion-text>
+				</p>
+			</ion-item>
+
+			<ion-row>
+				<ion-col padding>
+					<ion-button
+						type="submit"
+						class="savebutton"
+						color="success"
+						expand="block"
+						>Sauvegarder</ion-button
+					>
+				</ion-col>
+			</ion-row>
+		</form>
+	</ion-grid>
+</ion-content>

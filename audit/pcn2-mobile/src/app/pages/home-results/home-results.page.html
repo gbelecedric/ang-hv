@@ -1,0 +1,480 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-buttons slot="start">
+			<ion-menu-button color="secondary"></ion-menu-button>
+		</ion-buttons>
+		<ion-title>
+			<ion-text color="light">
+				<ion-text color="light" class="fw700">PCN</ion-text>
+			</ion-text>
+		</ion-title>
+		<ion-buttons slot="end">
+			<ion-button size="small" shape="round" color="medium">
+				<ion-icon name="notifications"></ion-icon>
+				<ion-badge *ngIf="notificationNonLu" color="warning"
+					>{{notificationNonLu}}</ion-badge
+				>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content refreshingSpinner="crescent">
+		</ion-refresher-content>
+	</ion-refresher>
+
+	<!-- ADMINPCN/SUPER-ADMIN -->
+
+	<ion-content padding *ngIf="adminPcnDashboard">
+		<ion-card>
+			<ion-card-content>
+				<ion-grid>
+					<ion-row>
+						<ion-col size="12" size-sm>
+							<ion-row>
+								<ion-col size="12" size-sm>
+									<ion-img
+										src="../../assets/icon/icons8_Administrator_Male.ico"
+										slot="end"
+									></ion-img>
+								</ion-col>
+								<ion-col size="6" size-sm>
+									Cotisation
+									<br />
+									<span class="sub-tile text-center">
+										Total de versement
+										</span
+									>
+								</ion-col>
+								<ion-col class="effectifs" size="6" size-sm>
+									{{organisationCotisation}}
+								</ion-col>
+							</ion-row>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-card-content>
+		</ion-card>
+
+		<ion-card>
+			<ion-card-content>
+				<ion-grid>
+					<ion-row>
+						<ion-col size="12" size-sm>
+							<ion-row>
+								<ion-col size="12" size-sm>
+									<ion-img
+										src="../../assets/icon/icons8_Administrator_Male.ico"
+										slot="end"
+									></ion-img>
+								</ion-col>
+								<ion-col size="6" size-sm>
+									Association
+									<br />
+									<span class="sub-tile text-center">
+										Nombre total d'association
+									</span>
+								</ion-col>
+								<ion-col class="effectifs" size="6" size-sm>
+									{{communityCount}}
+								</ion-col>
+
+								<ion-col size="4" size-sm>
+									<p class="effectifs">
+										{{ activeCommunityCount }}
+									</p>
+									<p class="sub-tile text-center">
+										Active
+									</p>
+								</ion-col>
+								<ion-col size="4" size-sm>
+									<p class="effectifs">
+										{{ disableCommunityCount }}
+									</p>
+									<p class="sub-tile text-center">
+										Désactivées
+									</p>
+								</ion-col>
+								<ion-col size="4" size-sm>
+									<p class="effectifs">
+										{{ pendingCommunityCount }}
+									</p>
+									<p class="sub-tile text-center">
+										En attente de validation
+									</p>
+								</ion-col>
+							</ion-row>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-card-content>
+		</ion-card>
+
+		<div class="bar bar-subheader">
+			<ion-grid>
+				<ion-row>
+					<ion-col size="10" size-sm>
+						<h6 class="table-title">
+							Associations en attente d'activation
+						</h6>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+		</div>
+		<ion-list *ngIf="listdataLength > 0 ">
+			<div *ngFor="let community of PendingCommunity">
+				<ion-item>
+					<ion-label text-wrap>
+						<h3 class="name-st">{{community.communityName}}</h3>
+						<p class="amount-st">
+							Nombre de Membre :
+							<span class="sub-effectifs"
+								>{{community.countSubscriptionMember}}</span
+							>
+						</p>
+						<p class="amount-st">
+							Versement :
+							<span class="sub-effectifs"
+								>{{community.countEventFeesSend}}</span
+							>
+						</p>
+					</ion-label>
+				</ion-item>
+			</div>
+		</ion-list>
+
+		<ion-list *ngIf="listdataLength === 0 ">
+			<ion-item role="alert">
+				Aucune donnée disponible
+			</ion-item>
+		</ion-list>
+	</ion-content>
+
+	<!--END ADMIN PCN DASHBOARD  -->
+
+	<!--START CUMMUNITY ADMIN DASHBOARD -->
+
+	<ion-content padding *ngIf="communityAdminDashboard">
+		<ion-card>
+			<ion-card-content>
+				<ion-grid>
+					<ion-row>
+						<ion-col size="12" size-sm>
+							<ion-row>
+								<ion-col size="12" size-sm>
+									<ion-img
+										src="../../assets/icon/icons8_Administrator_Male.ico"
+										slot="end"
+									></ion-img>
+								</ion-col>
+								<ion-col size="6" size-sm>
+									Membre
+								</ion-col>
+								<ion-col class="effectifs" size="6" size-sm>
+									{{ communityInfo.countSubscriptionMember }}
+								</ion-col>
+								<ion-col size="12" size-sm>
+									Nombre de membre depuis l'adhésion
+								</ion-col>
+								<ion-col size="3" size-sm>
+									<p class="effectifs">
+										{{ communityInfo.countMembersEnable }}
+									</p>
+									<p class="sub-tile text-center">
+										Actifs
+									</p>
+								</ion-col>
+								<ion-col size="3" size-sm>
+									<p class="effectifs">
+										{{ communityInfo.countMembersDisable }}
+									</p>
+									<p class="sub-tile text-center">
+										Désactivés
+									</p>
+								</ion-col>
+								<ion-col size="3" size-sm>
+									<p class="effectifs">
+										{{ communityInfo.countMembersPending }}
+									</p>
+									<p class="sub-tile text-center">
+										En attente
+									</p>
+								</ion-col>
+								<ion-col size="3" size-sm>
+									<p class="effectifs">
+										{{ communityInfo.countMembersNotified }}
+									</p>
+									<p class="sub-tile text-center">
+										En retard
+									</p>
+								</ion-col>
+							</ion-row>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-card-content>
+		</ion-card>
+
+		<ion-card>
+			<ion-card-content>
+				<ion-grid>
+					<ion-row>
+						<ion-col size="12" size-sm>
+							<ion-row>
+								<ion-col size="12" size-sm>
+									<ion-img
+										src="../../assets/icon/icons8_Administrator_Male.ico"
+										slot="end"
+									></ion-img>
+								</ion-col>
+								<ion-col size="6" size-sm>
+									Evènement en cours
+								</ion-col>
+								<ion-col size="6" size-sm>
+									{{ communityInfo.countEventFeesSend }}
+								</ion-col>
+								<ion-col size="12" size-sm>
+									Nombre total d'évènement en cours
+								</ion-col>
+							</ion-row>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-card-content>
+		</ion-card>
+
+		<ion-card>
+			<ion-card-content>
+				<ion-grid>
+					<ion-row>
+						<ion-col size="12" size-sm>
+							<ion-row>
+								<ion-col size="12" size-sm>
+									<ion-img
+										src="../../assets/icon/icons8_Administrator_Male.ico"
+										slot="end"
+									></ion-img>
+								</ion-col>
+								<ion-col size="6" size-sm>
+									Financement
+								</ion-col>
+								<ion-col size="6" size-sm>
+									{{
+									communityInfo.totalSubscriptionMembershipFees
+									}} CAD
+								</ion-col>
+								<ion-col size="12" size-sm>
+									Total des financement
+								</ion-col>
+							</ion-row>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-card-content>
+		</ion-card>
+
+		<div class="bar bar-subheader">
+			<ion-grid>
+				<ion-row>
+					<ion-col size="10" size-sm>
+						<h6 class="table-title">
+							Membres en attente de validation
+						</h6>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+		</div>
+
+		<ion-list>
+			<div *ngFor="let element of memberPending">
+				<ion-item>
+					<ion-label text-wrap>
+						<h3 class="name-st">
+							{{ element.memberDTO.lastName }} {{
+							element.memberDTO.firstName }}
+						</h3>
+						<p class="amount-st">
+							Compte :
+							<span class="sub-effectifs">
+								{{ element.accountDTO.amount }} {{
+								element.accountDTO.currency }}
+							</span>
+						</p>
+					</ion-label>
+				</ion-item>
+			</div>
+
+			<ion-item role="alert">
+				Aucune donnée disponible
+			</ion-item>
+		</ion-list>
+	</ion-content>
+
+	<!-- END COMMUNITY ADMIN DASHBOARD -->
+
+	<!--START MEMBER DASHBOARD  -->
+
+	<ion-content padding *ngIf="memberDashboard">
+		<ion-card>
+			<ion-card-content>
+				<ion-grid>
+					<ion-row>
+						<ion-col size="12" size-sm>
+							<ion-row>
+								<ion-col size="12" size-sm>
+									<ion-img
+										src="../../assets/icon/icons8_Administrator_Male.ico"
+										slot="end"
+									></ion-img>
+								</ion-col>
+								<ion-col size="6" size-sm>
+									Prestation financées
+								</ion-col>
+								<ion-col class="effectifs" size="6" size-sm>
+									{{ eventPay }}
+								</ion-col>
+								<ion-col size="12" size-sm>
+									Nombre de prestation financées
+								</ion-col>
+							</ion-row>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-card-content>
+		</ion-card>
+
+		<ion-card>
+			<ion-card-content>
+				<ion-grid>
+					<ion-row>
+						<ion-col size="12" size-sm>
+							<ion-row>
+								<ion-col size="12" size-sm>
+									<ion-img
+										src="../../assets/icon/icons8_Administrator_Male.ico"
+										slot="end"
+									></ion-img>
+								</ion-col>
+								<ion-col size="6" size-sm>
+									Cotisations
+								</ion-col>
+								<ion-col class="effectifs" size="6" size-sm>
+									{{ allFees }} CAD
+								</ion-col>
+								<ion-col size="12" size-sm>
+									Total des mes cotisations
+								</ion-col>
+							</ion-row>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-card-content>
+		</ion-card>
+
+		<ion-card>
+			<ion-card-content>
+				<ion-grid>
+					<ion-row>
+						<ion-col size="12" size-sm>
+							<ion-row>
+								<ion-col size="12" size-sm>
+									<ion-img
+										src="../../assets/icon/icons8_Administrator_Male.ico"
+										slot="end"
+									></ion-img>
+								</ion-col>
+								<ion-col size="6" size-sm>
+									Financement
+								</ion-col>
+								<ion-col class="effectifs" size="6" size-sm>
+									{{
+									communityInfo.totalSubscriptionMembershipFees
+									}} CAD
+								</ion-col>
+								<ion-col size="12" size-sm>
+									Total des financement
+								</ion-col>
+							</ion-row>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-card-content>
+		</ion-card>
+
+		<ion-card>
+			<ion-card-content>
+				<ion-grid>
+					<ion-row>
+						<ion-col size="12" size-sm>
+							<ion-row>
+								<ion-col size="12" size-sm>
+									<ion-img
+										src="../../assets/icon/icons8_Administrator_Male.ico"
+										slot="end"
+									></ion-img>
+								</ion-col>
+								<ion-col size="6" size-sm>
+									Membre lié
+								</ion-col>
+								<ion-col class="effectifs" size="6" size-sm>
+									{{ nbrFamilyLink }}
+								</ion-col>
+								<ion-col size="12" size-sm>
+									Nombre de membre lié déclaré
+								</ion-col>
+							</ion-row>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-card-content>
+		</ion-card>
+
+		<div class="bar bar-subheader">
+			<ion-grid>
+				<ion-row>
+					<ion-col size="10" size-sm>
+						<h6 class="table-title">
+							Vos cotisations
+						</h6>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+		</div>
+
+		<ion-list>
+			<div *ngFor="let element of accountHistory">
+				<ion-item>
+					<ion-label text-wrap>
+						<p class="amount-st">
+							Montant :
+							<span class="sub-effectifs"
+								>{{ element.amount }}</span
+							>
+						</p>
+						<p class="amount-st">
+							Description :
+							<span class="sub-effectifs"
+								>{{ element.amount }}</span
+							>
+						</p>
+						<p class="amount-st">
+							Date de l'opération :
+							<span class="sub-effectifs">
+								{{ element.operationDate | date : "MMMM d, y,
+								h:mm:ss a z" | uppercase }}</span
+							>
+						</p>
+					</ion-label>
+				</ion-item>
+			</div>
+
+			<ion-item role="alert">
+				Aucune donnée disponible
+			</ion-item>
+		</ion-list>
+	</ion-content>
+
+	<!--END MEMBER DASHBOARD  -->
+</ion-content>

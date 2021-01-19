@@ -1,0 +1,64 @@
+import { Component, OnInit } from '@angular/core';
+import { NavController, MenuController } from '@ionic/angular';
+import { ServiceService } from 'src/app/service.service';
+import { LoadingController } from '@ionic/angular';
+
+
+@Component({
+  selector: 'page-liste-institut-financiere',
+  templateUrl: './liste.html',
+  styleUrls: ['./liste.scss'],
+
+})
+
+export class ListePage implements OnInit {
+
+  listdata;
+  idAsso: any;
+  loading: any;
+
+
+  constructor(private navCtrl: NavController,
+    private institutService: ServiceService,
+    public loadingController:LoadingController,
+        private menuCtrl: MenuController) { }
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
+
+  ngOnInit() {
+    
+    this.getListeInstitut()
+
+  }
+
+  async getListeInstitut() {
+
+    this.loading = await this.loadingController.create({
+    });
+    await this.loading.present();
+        
+    this.institutService.getAllInstitution().subscribe(async res => {
+      await this.loading.dismiss();
+
+      this.listdata = res['content'];
+
+      // console.log(this.listdata);
+
+    });
+  }
+
+  ajoutinstitut() {
+    this.navCtrl.navigateRoot('ajout-institut-financiere');
+  }
+  
+
+  home() {
+    this.navCtrl.navigateForward('/home-results');
+  }
+
+  modifierinstitut(id) {
+    this.navCtrl.navigateForward('/modification-institut-financiere/'+ id);
+  }
+}

@@ -1,0 +1,44 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {
+  AlertController,
+  MenuController,
+  ToastController,
+  PopoverController,
+  ModalController
+} from '@ionic/angular';
+import { ServiceService } from 'src/app/service.service';
+
+
+
+/**
+ * Generated class for the CommunityListPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage()
+@Component({
+  selector: 'page-community-list',
+  templateUrl: 'community-list.html',
+  styleUrls: ['./community-list.scss']
+})
+export class CommunityListPage {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public menuCtrl: MenuController,
+    public popoverCtrl: PopoverController,
+    public alertCtrl: AlertController,
+    public modalCtrl: ModalController,
+    public toastCtrl: ToastController,
+    public modalController: ModalController,
+    private service: ServiceService
+  ) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CommunityListPage');
+  }
+
+}

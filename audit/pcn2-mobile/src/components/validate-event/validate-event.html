@@ -1,0 +1,44 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-buttons slot="start" (click)="listeInstitut()">
+			<ion-icon name="arrow-round-back" class="icon-lg"></ion-icon>
+		</ion-buttons>
+		<ion-title>Validation de l'evenement</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="line-input" padding>
+	<ion-grid>
+		<form class="list-form">
+			<ion-item lines="full">
+				<ion-icon name="wallet" slot="start"></ion-icon>
+				<ion-label position="stacked"
+					>Confirmer le montant :
+				</ion-label>
+				<ion-input
+					name="montant"
+					[(ngModel)]="amount"
+					type="number"
+					#name="ngModel"
+				></ion-input>
+			</ion-item>
+			<p class="amount-st" style="font-size: 10px;
+      color: #9E9E9E !important;">
+				Optionel
+			</p>
+
+			<ion-row>
+				<ion-col padding>
+					<ion-button
+						(click)="saveEventValidationFee()"
+						type="submit"
+						class="savebutton"
+						color="success"
+						expand="block"
+						>Confirmer</ion-button
+					>
+				</ion-col>
+			</ion-row>
+		</form>
+	</ion-grid>
+</ion-content>

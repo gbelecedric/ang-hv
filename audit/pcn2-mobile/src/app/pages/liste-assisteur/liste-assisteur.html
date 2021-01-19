@@ -1,0 +1,65 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-buttons slot="start" (click)="home()">
+			<ion-icon name="arrow-round-back" class="icon-lg"></ion-icon>
+		</ion-buttons>
+		<ion-title>Liste des assisteurs</ion-title>
+		<ion-buttons class="ionicon" slot="end" (click)="ajoutassisteur()">
+			<ion-icon name="add"></ion-icon>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<ion-content>
+	<div class="bar bar-subheader"></div>
+	<ion-searchbar name="term" [(ngModel)]="term"></ion-searchbar>
+	<ion-item *ngIf="listdataLength === 0 ">
+		<h4 style="color: gray; font-size: 15px; font-weight: 900;">{{info}}</h4>
+	</ion-item>
+
+	<ion-list *ngIf="listdataLength >0">
+		<ion-item
+			button
+			*ngFor="let assisteur of listdata | filter:term | orderBy: 'name': 'asc'; let i  = index"
+		>
+			<ion-col size="2">
+				<ion-avatar style="background: #2f32a0;">
+					<span class="first-letter">
+						{{assisteur.name|firstLetter}}
+					</span>
+				</ion-avatar>
+			</ion-col>
+			<ion-col size="10" class="itemcol">
+				<ion-row>
+					<ion-label text-wrap>
+						<h3 class="name-st">{{assisteur.name}}</h3>
+						<p class="amount-st">
+							<ion-icon
+								name="home"
+								class="linedicon"
+								slot="start"
+							></ion-icon>
+							{{assisteur.street}}
+						</p>
+					</ion-label>
+					<ion-buttons
+						class="ionicon"
+						size="small"
+						(click)="modifierassisteur(assisteur.email)"
+					>
+						<ion-icon name="create"></ion-icon>
+					</ion-buttons>
+				</ion-row>
+				<ion-row>
+					<ion-label text-wrap>
+						<p class="amount-st">
+							<ion-icon name="mail" slot="start"></ion-icon>
+							{{assisteur.email}} |
+							<ion-icon name="call" slot="start"></ion-icon>
+							{{assisteur.phoneNumber}}
+						</p>
+					</ion-label>
+				</ion-row>
+			</ion-col>
+		</ion-item>
+	</ion-list>
+</ion-content>

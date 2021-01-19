@@ -1,0 +1,63 @@
+import { Component, OnInit } from '@angular/core';
+import { NavController, MenuController } from '@ionic/angular';
+import { ServiceService } from 'src/app/service.service';
+
+
+export interface CotisEvent {
+  id: number;
+  libelleEvent: string;
+  dateEvent: any;
+  montantCotis: any;
+}
+
+@Component({
+  selector: 'page-community-list',
+  templateUrl: './community-list.html',
+  styleUrls: ['./community-list.scss'],
+})
+export class CommunityListPage implements OnInit {
+
+data: any;
+idAsso: any;
+transfertCotis: any = [];
+evenement: any = [];
+cotisEvent: CotisEvent[] = [];
+
+  constructor(private navCtrl: NavController,
+    private evenementService: ServiceService,
+    private menuCtrl: MenuController) { }
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
+
+  ngOnInit() {
+    // this.idAsso = this.asso.user.membre.association.id;
+    // console.log(this.idAsso);
+    // this.DetailsAsso();
+    this.evenementService.getEvent().subscribe( res => {
+      this.evenement = res;
+      this.evenementService.getDetailsAssociation().subscribe( resultat => {
+        this.transfertCotis = resultat;
+
+        for (let i = 0; i < this.evenement.length; i++) {
+          const id = this.evenement[i].id;
+          const libelleEvent = this.evenement[i].libelleEvent;
+          const dateEvent = this.evenement[i].dateEvent;
+          for (let j = 0; j < this.transfertCotis.length; j++) {
+              const montantCotis = this.transfertCotis[j].montantCotis;
+                if (id === this.transfertCotis[j].evenement.id) {
+                  this.cotisEvent.push({id: id, libelleEvent: libelleEvent, dateEvent: dateEvent, montantCotis: montantCotis});
+                }
+          }
+        }
+        // console.log(this.cotisEvent);
+
+      });
+    });
+
+  }
+  home() {
+    this.navCtrl.navigateForward('/home-results');
+  }
+}

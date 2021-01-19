@@ -1,0 +1,13 @@
+import { NgModule } from '@angular/core';
+import { ActionPopComponent } from './action-pop/action-pop';
+import { MemberActionComponent } from './member-action/member-action';
+@NgModule({
+    declarations: [ActionPopComponent,
+        ActionPopComponent,
+        MemberActionComponent],
+    imports: [],
+    exports: [ActionPopComponent,
+        ActionPopComponent,
+        MemberActionComponent]
+})
+export class ComponentsModule { }

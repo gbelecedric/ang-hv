@@ -1,0 +1,6 @@
+projectKey=pcn_mobile
+serverUrl=http://codequality.rintio.com
+serverVersion=7.9.3.33349
+dashboardUrl=http://codequality.rintio.com/dashboard?id=pcn_mobile
+ceTaskId=AXIOslRQoOuQkQT07taL
+ceTaskUrl=http://codequality.rintio.com/api/ce/task?id=AXIOslRQoOuQkQT07taL

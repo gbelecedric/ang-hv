@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sécurité</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="profile">
+  <ion-card no-margin>
+    <ion-card-content class="bg-profile" text-center>
+        <!-- <img src="../../assets/icon/logoPCN.png"> -->
+    </ion-card-content>
+
+    <ion-grid fixed no-padding>
+      <ion-row>
+        <ion-col size="12" padding>
+
+          <ion-list margin-bottom>
+            <ion-list-header color="light">
+              <ion-label class="fw700">Modifier son mot de passe</ion-label>
+            </ion-list-header>
+
+            <form [formGroup]="onChangeLoginForm">
+              <ion-text >
+               <ion-label color = "warning" *ngIf = "message">{{message}}</ion-label> 
+              </ion-text>
+              <ion-item  no-padding class="animated fadeInUp">
+                <ion-label color="dark"  position="floating">Entrer votre nouveau mot de passe:</ion-label>
+                <ion-input type="password" formControlName="password" color="secondary"></ion-input>
+              </ion-item>
+
+              <ion-item  no-padding class="animated fadeInUp">
+                <ion-label color="dark" position="floating">Confirmer votre nouveau mot de passe:</ion-label>
+                <ion-input type="password"  formControlName="passwordconfirm" color="secondary"></ion-input>
+              </ion-item>
+            </form>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-button color="primary" (click)="sendData()" [disabled]="!onChangeLoginForm.valid">Valider</ion-button>
+  </ion-card>
+</ion-content>

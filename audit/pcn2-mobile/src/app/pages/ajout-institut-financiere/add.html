@@ -1,0 +1,74 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-buttons slot="start" (click)="listeInstitut()">
+			<ion-icon name="arrow-round-back" class="icon-lg"></ion-icon>
+		</ion-buttons>
+		<ion-title>Ajouter une institution</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="line-input" padding>
+	<ion-grid>
+		<form
+			[formGroup]="institut"
+			class="list-form"
+			(ngSubmit)="saveInstitut()"
+			novalidate
+		>
+			<ion-item lines="full">
+				<ion-icon name="person" slot="start"></ion-icon>
+				<ion-label position="stacked">Nom de l'institution </ion-label>
+				<ion-input
+					formControlName="nomInst"
+					type="text"
+					[class.invalid]="!institut.controls.nomInst.valid && institut.controls.nomInst.touched"
+					required
+				></ion-input>
+				<!-- Error messages -->
+				
+				<p
+					ion-text
+					class="text08"
+					*ngIf="!institut.controls.nomInst.valid && institut.controls.nomInst.touched"
+					>
+					<ion-text color="warning">
+						le nom de l'institution est
+						<strong>requis</strong>
+					</ion-text>
+				</p>
+			</ion-item>
+
+			<ion-item lines="full">
+				<ion-icon name="card"  slot="start"></ion-icon>
+				<ion-label position="stacked"
+					>No Compte</ion-label
+				>
+				<ion-input
+					formControlName="NoCompte"
+					type="test"
+					[class.invalid]="!institut.controls.NoCompte.valid && institut.controls.NoCompte.touched"
+					required
+				></ion-input>
+				<!-- Error messages -->
+				<p
+					ion-text
+					class="text08"
+					*ngIf="!institut.controls.NoCompte.valid && institut.controls.NoCompte.touched"
+					>
+					<ion-text color="warning">
+						le numéro de compte est
+						<strong>requis</strong>
+					</ion-text>
+				</p>
+			</ion-item>
+
+			<ion-row>
+				<ion-col padding>
+					<ion-button type="submit" class="savebutton" color="success" expand="block"
+						>Sauvegarder</ion-button
+					>
+				</ion-col>
+			</ion-row>
+		</form>
+	</ion-grid>
+</ion-content>

@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons >
+      <ion-button size="small" shape="round" (click)="close()" color="tertiary">
+        <ion-icon  name="close"></ion-icon> Fermer
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+  <ion-card>
+    
+    <ion-list>
+      <ion-item-group *ngIf="data">
+        <ion-card color = "warning">
+          <ion-item>
+            <span><h3><b>Montant à cotiser:</b></h3> </span> 
+            <ion-badge color="warning" slot="end"><h1>{{data.montantCotis}}</h1> </ion-badge>
+          </ion-item>
+        </ion-card>
+          <ion-item>
+              <span ><b>Evènement:</b> </span>
+              <ion-badge color="info" slot="end">{{data.libelleEvent}}</ion-badge>
+          </ion-item>
+          <ion-item>
+              <span ><b>Desc Evènement:</b>  </span>
+              <ion-badge color="info" slot="end">{{data.descEvent}}</ion-badge>  
+          </ion-item>
+          <ion-item>
+              <span ><b>Date Evènement:</b></span>
+              <ion-badge color="info" slot="end">{{data.dateEvent}}</ion-badge>     
+          </ion-item>
+          <ion-item>
+              <span ><b>Date Debut Prestation:</b>  </span>
+              <ion-badge color="info" slot="end">{{data.dateDebutCotisation}}</ion-badge>
+          </ion-item>
+          <ion-item>
+              <span ><b>Date Fin Prestation:</b> </span> 
+              <ion-badge color="info" slot="end">{{data.dateFinCotisation}}</ion-badge>
+          </ion-item>
+          <ion-item>
+              <span ><b>Nom Prenom membre:</b> </span> 
+              <ion-badge color="info" slot="end">{{data.membre.nomMembre}} {{data.membre.prenomMembre}}</ion-badge>    
+          </ion-item>
+          <ion-item>
+              <span ><b>Nom Association:</b>  </span>
+              <ion-badge color="info" slot="end">{{data.association.nomAsso}}</ion-badge>
+          </ion-item>
+          <ion-item>
+              <span ><b>Nom Assisteurs:</b> </span> 
+              <ion-badge color="info" slot="end">{{data.assisteur.nomAssi}}</ion-badge>
+          </ion-item>
+       </ion-item-group>
+     </ion-list>
+  </ion-card>
+</ion-content>

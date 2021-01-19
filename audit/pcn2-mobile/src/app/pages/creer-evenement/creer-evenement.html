@@ -1,0 +1,76 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-buttons slot="start" (click)="back()">
+			<ion-icon name="arrow-round-back" class="icon-lg"></ion-icon>
+		</ion-buttons>
+		<ion-title>Créer un evenement</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="line-input" padding>
+	<ion-grid>
+		<form class="list-form">
+			<ion-item lines="full">
+				<ion-icon name="information" slot="start"></ion-icon>
+				<ion-label position="stacked">Motif</ion-label>
+				<ion-input
+					[formControl]="motif"
+					type="text"
+					required
+				></ion-input>
+			</ion-item>
+
+			<ion-item lines="full">
+				<ion-icon name="person" slot="start"></ion-icon>
+				<ion-label position="stacked">Membre</ion-label>
+				<ion-input
+					[formControl]="membre"
+					disabled="true"
+					type="text"
+					required
+				>{{ memberDetails.memberDTO.lastName }} {{
+					memberDetails.memberDTO.firstName }}</ion-input>
+			</ion-item>
+
+			<ion-item lines="full">
+				<ion-icon name="people" slot="start"></ion-icon>
+				<ion-label position="stacked">Assisteur</ion-label>
+				<ion-select
+					placeholder="Selectionner "
+					[formControl]="assisteur"
+					interface="action-sheet"
+				>
+					<ion-select-option
+						*ngFor="let unAssisteur of listdata"
+						value="{{ unAssisteur.id }}"
+						>{{ unAssisteur.name }}</ion-select-option
+					>
+				</ion-select>
+			</ion-item>
+
+			<ion-item lines="full">
+				<ion-icon name="calendar" slot="start"></ion-icon>
+				<ion-label position="stacked">Date</ion-label>
+				<ion-datetime
+				placeholder="Select Date"
+					[formControl]="date"
+					required
+				>
+				</ion-datetime>
+			</ion-item>
+
+			<ion-row>
+				<ion-col padding>
+					<ion-button
+						type="submit"
+						class="savebutton"
+						color="success"
+						expand="block"
+						(click)="saveEvenement()"
+						>Sauvegarder</ion-button
+					>
+				</ion-col>
+			</ion-row>
+		</form>
+	</ion-grid>
+</ion-content>

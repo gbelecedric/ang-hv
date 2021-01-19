@@ -1,0 +1,11 @@
+<!-- Generated template for the ActionPopComponent component -->
+<div>
+  <ion-list>
+    <ion-list-header>Action</ion-list-header>
+    <ion-item lines="none" button (click)="validateEvent()" *ngIf="evenement.eventDTO.eventStatus === 'GENERATED'">Valider</ion-item>
+    <ion-item lines="none" button (click)="TransfertPcn()" *ngIf="evenement.eventDTO.eventStatus === 'DELIVERING'">Transfert au PCN</ion-item>
+    <ion-item lines="none" button (click)="TransfertAssisteur()" *ngIf="evenement.eventDTO.eventStatus === 'TRANSFER_PCN'">Transfert à l'assisteur</ion-item>
+    <ion-item lines="none" button (click)="TransfertBeneficiaire()" *ngIf="evenement.eventDTO.eventStatus === 'TRANSFER_ASSISTEUR'">Transfert au Beneficiaire</ion-item>
+    <ion-item lines="none" detail="false" button (click)="CloturerEvent()" *ngIf="evenement.eventDTO.eventStatus === 'PAYED'">CLOTURER</ion-item>
+  </ion-list>
+</div>

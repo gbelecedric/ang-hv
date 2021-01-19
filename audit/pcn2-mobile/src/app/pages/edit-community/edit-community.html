@@ -1,0 +1,217 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-buttons slot="start" (click)="home()">
+			<ion-icon name="arrow-round-back" class="icon-lg"></ion-icon>
+		</ion-buttons>
+		<!-- <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons> -->
+		<ion-title>Modification d'une association</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-content padding>
+		<form>
+			<ion-list lines="full" class="ion-no-margin ion-no-padding">
+				<ion-item>
+					<ion-label position="stacked">
+						Nom <ion-text color="danger">*</ion-text>
+					</ion-label>
+					<ion-input
+						required
+						type="text"
+						[(ngModel)]="association.communityDTO.name"
+						name="nomAsso"
+						#name="ngModel"
+						required
+					></ion-input>
+				</ion-item>
+
+				<ion-item>
+					<ion-label position="stacked"
+						>Objet <ion-text color="danger">*</ion-text>
+					</ion-label>
+					<ion-input
+						required
+						type="text"
+						[(ngModel)]="association.communityDTO.communityAim"
+						name="objetAssociation"
+						#name="ngModel"
+						required
+					></ion-input>
+				</ion-item>
+
+				<ion-item>
+					<ion-label position="stacked"
+						>Adresse <ion-text color="danger">*</ion-text>
+					</ion-label>
+					<ion-input
+						required
+						type="text"
+						[(ngModel)]="association.communityDTO.street"
+						name="adresseAsso"
+						#name="ngModel"
+						required
+						[disabled]="readonly"
+					></ion-input>
+				</ion-item>
+
+				<ion-item>
+					<ion-label position="stacked">Pays : {{ association.countryDTO.name }}</ion-label>
+          <ion-select
+						[(ngModel)]="association.countryDTO.id"
+						name="pays"
+						#name="ngModel"
+            interface="action-sheet"
+            (ionChange)="onSelectCountryChange()"
+						required
+					>
+						<ion-select-option
+							*ngFor="let unPays of listPays"
+							(click)="
+            chargerListeRegion(
+              unPays.id,
+              unPays.currency,
+              unPays.currencySymbol
+            )
+          "
+							value="{{ unPays.id }}"
+							>{{ unPays.name }}</ion-select-option
+						>
+					</ion-select>
+				</ion-item>
+
+				<ion-item>
+					<ion-label position="stacked">Zone/Region/Etat : {{ association.districtDTO.name }}</ion-label>
+					<ion-select
+						[(ngModel)]="association.districtDTO.id"
+            name="region"
+            interface="action-sheet"
+            (ionChange)="onSelectDistrictChange()"
+						#name="ngModel"
+						required
+					>
+						<ion-select-option
+							*ngFor="let uneRegion of listRegion"
+							(click)="
+            chargerListeVille(
+              uneRegion.id
+            )
+          "
+							value="{{ uneRegion.id }}"
+							>{{ uneRegion.name }}</ion-select-option
+						>
+					</ion-select>
+				</ion-item>
+
+				<ion-item>
+					<ion-label position="stacked">Ville : {{ association.cityDTO.name }}</ion-label>
+					<ion-select
+            interface="action-sheet"
+						[(ngModel)]="association.cityDTO.id"
+						name="ville"
+						#name="ngModel"
+						required
+					>
+						<ion-select-option
+							*ngFor=" let uneVille of this.listVille "
+							(click)=" chargerListeVille( uneRegion.id )"
+							value="{{ uneVille.id }}"
+						>
+							{{ uneVille.name }}
+						</ion-select-option>
+					</ion-select>
+				</ion-item>
+
+				<ion-item>
+					<ion-label position="stacked">
+						Email <ion-text color="danger">*</ion-text>
+					</ion-label>
+					<ion-input
+						required
+						type="text"
+						type="email"
+						name="emailAsso"
+						[(ngModel)]="association.communityDTO.email"
+						#name="ngModel"
+						required
+					></ion-input>
+				</ion-item>
+
+				<ion-item>
+					<ion-label position="stacked"
+						>Téléphone <ion-text color="danger">*</ion-text>
+					</ion-label>
+					<ion-input
+						required
+						type="text"
+						[(ngModel)]="association.communityDTO.phoneNumber"
+						name="telAsso"
+						#name="ngModel"
+						required
+					></ion-input>
+				</ion-item>
+
+				<ion-item>
+					<ion-label position="stacked"
+						>Code postal <ion-text color="danger">*</ion-text>
+					</ion-label>
+					<ion-input
+						required
+						type="text"
+						name="codePostalAsso"
+						[(ngModel)]="association.communityDTO.zipCode"
+						#name="ngModel"
+						required
+					></ion-input>
+				</ion-item>
+
+				<ion-item *ngIf="!this.choix">
+					<ion-label position="stacked"
+						>Condition <ion-text color="danger">*</ion-text>
+					</ion-label>
+					<ion-input
+						required
+						type="text"
+						[formControl]="condition"
+						placeholder="Condition"
+						name="condition"
+					></ion-input>
+				</ion-item>
+
+				<ion-item>
+					<ion-label>Ouvert à tous</ion-label>
+					<ion-select
+						placeholder="Selectionner "
+						name="ouvert"
+						[(ngModel)]="association.communityDTO.open"
+						#name="ngModel"
+						required
+					>
+						<ion-select-option
+							(click)="choisirOuvert(1)"
+							value="true"
+							>Oui</ion-select-option
+						>
+						<ion-select-option
+							(click)="choisirOuvert(0)"
+							value="false"
+							>Non</ion-select-option
+						>
+					</ion-select>
+				</ion-item>
+			</ion-list>
+
+			<div class="ion-padding">
+				<ion-button
+					expand="block"
+					type="submit"
+					(click)="editAsso()"
+					class="ion-no-margin"
+					>Enregistrer</ion-button
+				>
+			</div>
+		</form>
+	</ion-content>
+</ion-content>

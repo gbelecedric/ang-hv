@@ -1,0 +1,11 @@
+<!-- Generated template for the MemberActionComponent component -->
+<!-- Generated template for the ActionPopComponent component -->
+<div>
+  <ion-list>
+    <ion-list-header>Action</ion-list-header>
+    <ion-item button (click)="activerMember()">Activer</ion-item>
+    <ion-item button (click)="desactiverMember()">Désactiver</ion-item>
+    <ion-item button (click)="editMember()">Modifier</ion-item>
+    <ion-item button [routerLink]="[ 'creer-evenement/' , memberId]" (click)="routeEvent()">Créer un evenement</ion-item>
+  </ion-list>
+</div>

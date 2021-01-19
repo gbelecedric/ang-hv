@@ -1,0 +1,83 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-buttons slot="start" (click)="home()">
+			<ion-icon name="arrow-round-back" class="icon-lg"></ion-icon>
+		</ion-buttons>
+		<ion-title>Liste des evenements</ion-title>
+	</ion-toolbar>
+</ion-header>
+<ion-content>
+	<div class="bar bar-subheader"></div>
+	<ion-searchbar name="term" [(ngModel)]="term"></ion-searchbar>
+	<ion-item>
+		<ion-label>Selectionner un statut</ion-label>
+		<ion-select [(ngModel)]="status" name="status">
+			<ion-select-option value="">Tous</ion-select-option>
+			<ion-select-option value="DELIVERING">Livré</ion-select-option>
+			<ion-select-option value="GENERATED">Généré</ion-select-option>
+			<ion-select-option value="PAYED">Payé</ion-select-option>
+			<ion-select-option value="TRANSFER_PCN"
+				>Transfert-PCN</ion-select-option
+			>
+			<ion-select-option value="TRANSFER_ASSISTEUR"
+				>Transfert-Assisteur</ion-select-option
+			>
+			<ion-select-option value="ACHIEVED">Terminé</ion-select-option>
+		</ion-select>
+	</ion-item>
+	
+	<ion-item *ngIf="listdataLength === 0 ">
+		<h4 style="color: gray; font-size: 15px; font-weight: 900;">{{info}}</h4>
+	</ion-item>
+
+	<ion-list *ngIf="listdataLength >0">
+		<ion-item
+			button
+			*ngFor="let event of listdata | filter:term | orderBy: 'eventDTO.description': 'asc' | filterbystatus:status; let i  = index"
+			[routerLink]="['/details-evenement/', event.eventDTO.id]"
+		>
+			<ion-col size="2">
+				<ion-avatar style="background: #2f32a0;">
+					<span class="first-letter">
+						{{event.eventDTO.description|firstLetter}}
+					</span>
+				</ion-avatar>
+			</ion-col>
+			<ion-col size="10" class="itemcol">
+				<ion-row>
+					<ion-col size="9">
+						<ion-label text-wrap>
+							<h3
+								*ngIf="event.eventDTO.description.length>50"
+								class="name-st"
+							>
+								{{event.eventDTO.description |
+								textContentTruncate:{sliceStart: 0, sliceEnd:
+								50, append: '...'} }}
+							</h3>
+							<h3
+								*ngIf="event.eventDTO.description.length<50"
+								class="name-st"
+							>
+								{{event.eventDTO.description }}
+							</h3>
+							<p class="amount-st">
+								<ion-icon name="person" slot="start"></ion-icon>
+								{{event.memberDTO.firstName}}
+								{{event.memberDTO.lastName}}
+							</p>
+						</ion-label>
+					</ion-col>
+					<ion-col size="3">
+						<ion-label class="ionicon">
+							<p class="amount-st">
+								{{event.eventDTO.passedAwayDate | date : "MMMM
+								d, y"}}
+							</p>
+						</ion-label>
+					</ion-col>
+				</ion-row>
+			</ion-col>
+		</ion-item>
+	</ion-list>
+</ion-content>

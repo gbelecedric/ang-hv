@@ -1,0 +1,79 @@
+<ion-header>
+	<ion-toolbar color="primary">
+	  <ion-buttons slot="start" (click)="listeInstitut()">
+		<ion-icon name="arrow-round-back" class="icon-lg"></ion-icon>
+	  </ion-buttons>
+	  <ion-title>Modifier l'institut</ion-title>
+	</ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="line-input" padding>
+	<ion-grid>
+	  <form
+		[formGroup]="institut"
+		class="list-form"
+		(ngSubmit)="saveInstitut()"
+		novalidate
+	  >
+		<ion-item lines="full">
+		  <ion-icon name="person" slot="start"></ion-icon>
+		  <ion-label position="stacked">Nom de l'institution</ion-label>
+		  <ion-input
+			formControlName="nomInst"
+			type="text"
+			[(ngModel)]="Institut.name"
+			[class.invalid]="!institut.controls.nomInst.valid && institut.controls.nomInst.touched"
+			required
+		  ></ion-input>
+		  <!-- Error messages -->
+  
+		  <p
+			ion-text
+			class="text08"
+			*ngIf="!institut.controls.nomInst.valid && institut.controls.nomInst.touched"
+			>
+			<ion-text color="warning">
+			  le nom de l'institut est
+			  <strong>requis</strong>
+			</ion-text>
+		  </p>
+		</ion-item>
+  
+		<ion-item lines="full">
+		  <ion-icon name="card"  slot="start"></ion-icon>
+		  <ion-label position="stacked">No Compte</ion-label>
+		  <ion-input
+			formControlName="accountNumber"
+			type="test"
+			[(ngModel)]="Institut.accountNumber"
+			[class.invalid]="!institut.controls.accountNumber.valid && institut.controls.accountNumber.touched"
+			required
+		  ></ion-input>
+		  <!-- Error messages -->
+		  <p
+			ion-text
+			class="text08"
+			*ngIf="!institut.controls.accountNumber.valid && institut.controls.accountNumber.touched"
+		  >
+			<ion-text color="warning">
+			  l'adresse de l'institut est
+			  <strong>requis</strong>
+			</ion-text>
+		  </p>
+		</ion-item>
+  
+		<ion-row>
+		  <ion-col padding>
+			<ion-button
+			  type="submit"
+			  class="savebutton"
+			  color="success"
+			  expand="block"
+			  >Sauvegarder</ion-button
+			>
+		  </ion-col>
+		</ion-row>
+	  </form>
+	</ion-grid>
+  </ion-content>
+  

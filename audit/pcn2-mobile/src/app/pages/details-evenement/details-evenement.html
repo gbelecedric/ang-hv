@@ -1,0 +1,110 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-buttons slot="start" (click)="home()">
+			<ion-icon name="arrow-round-back" class="icon-lg"></ion-icon>
+		</ion-buttons>
+	
+		<ion-title>Details de l'evenement</ion-title>
+
+		<ion-buttons *ngIf="user.role === 'ADMIN'" class="ionicon" slot="end" (click)="presentPopover(ev)">
+			<ion-icon name="more"></ion-icon>
+		  </ion-buttons>
+
+	</ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+	<ion-card-header>
+		<ion-card-title>
+			<ion-row>
+				<ion-col size="12" class="name-community" size-sm>
+					{{ evenement.eventDTO.description }}
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col size-sm>
+					<ion-badge color="success"
+						>{{ evenement.eventDTO.eventStatus }}</ion-badge
+					>
+				</ion-col>
+			</ion-row>
+		</ion-card-title>
+	</ion-card-header>
+	<ion-card-content text-center>
+		<ion-item lines="none">
+			<ion-icon name="calendar" slot="start"></ion-icon>
+			<ion-label class="info-community">
+				<strong> Date de l'évènement: </strong>{{ evenement.eventDTO.passedAwayDate | date : "MMMM d,
+				y" }}</ion-label
+			>
+		</ion-item>
+
+		<ion-item lines="none">
+			<ion-icon name="wallet" slot="start"></ion-icon>
+			<ion-label text-wrap class="info-community" *ngIf="evenement.eventDTO.amount">
+				<strong>Montant à prester:</strong> {{ evenement.eventDTO.amount }}</ion-label
+			>
+			<ion-label text-wrap class="info-community" *ngIf="!evenement.eventDTO.amount">
+				<strong>Montant à prester:</strong> Indisponible</ion-label
+			>
+		</ion-item>
+	</ion-card-content>
+
+	<ion-card-header>
+		<ion-card-title> </ion-card-title>
+		<ion-card-subtitle> Membre Concerné </ion-card-subtitle>
+	</ion-card-header>
+	<ion-card-content text-center>
+		<ion-item lines="none">
+			<ion-icon name="person" slot="start"></ion-icon>
+			<ion-label class="info-community">
+				<strong>Nom: </strong>{{ evenement.memberDTO.firstName }} {{
+				evenement.memberDTO.lastName }}</ion-label
+			>
+		</ion-item>
+
+		<ion-item lines="none">
+			<ion-icon name="calendar" slot="start"></ion-icon>
+			<ion-label text-wrap class="info-community">
+				<strong>Date de cotisation:</strong> {{ evenement.memberDTO.commissioningDate | date : "MMMM d,
+				y" }}</ion-label
+			>
+		</ion-item>
+	</ion-card-content>
+
+	<ion-card-header>
+		<ion-card-title> </ion-card-title>
+		<ion-card-subtitle> Assisteur </ion-card-subtitle>
+	</ion-card-header>
+	<ion-card-content text-center>
+		<ion-item lines="none">
+			<ion-icon name="people" slot="start"></ion-icon>
+			<ion-label *ngIf="evenement.assisteurDTO.name" class="info-community">
+				<strong>Nom:</strong> {{ evenement.assisteurDTO.name }}</ion-label
+			>
+			<ion-label *ngIf="!evenement.assisteurDTO.name" class="info-community">
+				<strong>Nom:</strong> Non disponible</ion-label
+			>
+		</ion-item>
+
+		<ion-item lines="none">
+			<ion-icon name="call" slot="start"></ion-icon>
+			<ion-label *ngIf="evenement.assisteurDTO.phoneNumber" text-wrap class="info-community">
+				<strong>Téléphone:</strong> {{ evenement.assisteurDTO.phoneNumber }}</ion-label
+			>
+			<ion-label *ngIf="!evenement.assisteurDTO.phoneNumber" text-wrap class="info-community">
+				<strong>Téléphone:</strong> Non disponible</ion-label
+			>
+		</ion-item>
+
+		<ion-item lines="none">
+			<ion-icon name="home" slot="start"></ion-icon>
+			<ion-label *ngIf="evenement.assisteurDTO.street" text-wrap class="info-community">
+				<strong>Adresse:</strong> {{ evenement.assisteurDTO.street }}</ion-label
+			>
+			<ion-label *ngIf="!evenement.assisteurDTO.street" text-wrap class="info-community">
+				<strong>Adresse:</strong> Non disponible</ion-label
+			>
+		</ion-item>
+	</ion-card-content>
+</ion-content>

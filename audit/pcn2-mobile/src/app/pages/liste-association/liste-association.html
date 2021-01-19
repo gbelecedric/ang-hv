@@ -1,0 +1,43 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-buttons slot="start" (click)="home()">
+			<ion-icon name="arrow-round-back" class="icon-lg"></ion-icon>
+		</ion-buttons>
+		<ion-title>Liste des associations</ion-title>
+		<ion-buttons class="ionicon" slot="end" (click)="addcommunity()">
+			<ion-icon name="add"></ion-icon>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<ion-content>
+	<ion-searchbar name="term" [(ngModel)]="term"></ion-searchbar>
+	<ion-item *ngIf="listdataLength === 0 ">
+		<h4 style="color: gray; font-size: 15px; font-weight: 900;">{{info}}</h4>
+	</ion-item>
+
+	<ion-list *ngIf="listdataLength >0">
+
+		<ion-item button *ngFor="let community of listCommunuty | filter:term | orderBy: 'name': 'asc'; "
+			[routerLink]="['/details-asso/', community.communityDTO.communityAdminUserId]" >
+			<ion-avatar slot="start" style="background: #2f32a0;">
+				<span class="first-letter">
+					{{community.communityDTO.name |firstLetter | uppercase }}
+				</span>
+			</ion-avatar>
+
+			<ion-label text-wrap>
+				<h3 class="name-st">{{community.communityDTO.name}} </h3>
+				<p class="amount-st">
+					{{community.cityDTO.name}}
+				</p>
+				<p class="amount-st">
+					{{community.parameterDTO.communityMinAmount}} {{community.parameterDTO.currency}}
+				</p>
+			</ion-label>
+
+		</ion-item>
+
+	</ion-list>
+
+
+</ion-content>

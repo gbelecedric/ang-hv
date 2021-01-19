@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start" (click)="home()">
+      <ion-icon name="arrow-round-back" class="icon-lg"></ion-icon>
+    </ion-buttons>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons> -->
+    <ion-title>Modification membre</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-content fullscreen>
+    <form>
+      <ion-list lines="full" class="ion-no-margin ion-no-padding">
+        <ion-item>
+          <ion-label position="stacked"> Nom <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input required type="text" [(ngModel)]="member.memberDTO.lastName" name="nomMembre" #name="ngModel" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Prénoms <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input required type="text" [(ngModel)]="member.memberDTO.firstName" name="prenomMembre" #name="ngModel" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Date Naissance <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-datetime required type="date" [(ngModel)]="member.memberDTO.birthDate" name="dateNaiss" #name="ngModel" required display-timezone="utc"></ion-datetime>
+          <ion-input></ion-input>
+        </ion-item>
+
+            
+        <ion-item>
+          <ion-label position="stacked">Téléphone <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input required type="text" [(ngModel)]="member.memberDTO.phoneNumber" name="telMembre" #name="ngModel" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Email <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input required type="text" [formControl]="emailMembre"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Pays de Résidence </ion-label>
+          <ion-select placeholder="Selectionner" interface="action-sheet" [(ngModel)]="member.countryDTO.name" name="pays"   #name="ngModel" name="pays"  required>
+            <ion-select-option *ngFor="let unPays of listPays" (click)="chargerListeRegion( unPays.id ) "
+              value="{{ unPays.id }}">
+              {{ unPays.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Zone/Region/Etat </ion-label>
+          <ion-select placeholder="Selectionner" interface="action-sheet" [(ngModel)]="member.districtDTO.name" name="region"   #name="ngModel" required >
+            <ion-select-option *ngFor="let uneRegion of listRegion" (click)="chargerListeVille( uneRegion.id ) "
+              value="{{ uneRegion.id }}">
+              {{ uneRegion.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label> Ville </ion-label>
+          <ion-select placeholder="Selectionner" interface="action-sheet" [(ngModel)]="member.cityDTO.name" name="ville"   #name="ngModel" required >
+            <ion-select-option *ngFor="let uneVille of this.listVille" value="{{ uneVille.id }}">
+              {{ uneVille.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label position="stacked"> Code postal <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input required type="text" name="codePostal" [(ngModel)]="member.memberDTO.zipCode" #name="ngModel" required></ion-input>
+        </ion-item>
+
+      </ion-list>
+
+      <div class="ion-padding">
+        <ion-button expand="block" type="submit" (click)="updateMember()" style="background: #4caf50; color: #fff;" class="ion-no-margin">Enregistrer</ion-button>
+      </div>
+    </form>
+  </ion-content>
+</ion-content>

@@ -1,0 +1,51 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common'; // <-- This one
+
+
+const routes: Routes = [
+  { path: '', loadChildren: './pages/login/login.module#LoginPageModule' },
+  { path: 'about', loadChildren: './pages/about/about.module#AboutPageModule' },
+  { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' },
+  { path: 'edit-profile', loadChildren: './pages/edit-profile/edit-profile.module#EditProfilePageModule' },
+  { path: 'home-results', loadChildren: './pages/home-results/home-results.module#HomeResultsPageModule' },
+  { path: 'ajout-assisteur', loadChildren: './pages/ajout-assisteur/ajout-assisteur.module#AjoutAssisteurPageModule' },
+  { path: 'ajout-institut-financiere', loadChildren: './pages/ajout-institut-financiere/add.module#AjoutInstitutPageModule' },
+  // tslint:disable-next-line: max-line-length
+  { path: 'modification-assisteur/:e_id', loadChildren: './pages/modification-assisteur/modification-assisteur.module#ModificationAssisteurPageModule' },
+  // tslint:disable-next-line: max-line-length
+  { path: 'modification-institut-financiere/:a_id', loadChildren: './pages/modification-institut-financiere/edit.module#ModificationInstitutPageModule' },
+  { path: 'liste-assisteur', loadChildren: './pages/liste-assisteur/liste-assisteur.module#ListeAssisteurPageModule' },
+  { path: 'liste-association', loadChildren: './pages/liste-association/liste-association.module#ListeAssociationPageModule' },
+  { path: 'liste-evenement/:a_id', loadChildren: './pages/liste-evenement/liste-evenement.module#ListeEvenementPageModule' },
+  { path: 'liste-membre/:id', loadChildren: './pages/liste-membre/liste-membre.module#ListeMembrePageModule' },
+  { path: 'liste', loadChildren: './pages/liste-institut-financiere/liste.module#ListePageModule' },
+  { path: 'events', loadChildren: './pages/events/events.module#EventsPageModule' },
+  { path: 'details-asso/:id', loadChildren: './pages/details-asso/details-asso.module#DetailsAssoPageModule' },
+  { path: 'community-list', loadChildren: './pages/community-list/community-list.module#CommunityListPageModule' },
+  { path: 'details-membre/:id', loadChildren: './pages/details-membre/details-membre.module#DetailsMembrePageModule' },
+  { path: 'add-community', loadChildren: './pages/ajout-community/ajout-community.module#AjoutCommunityPageModule' },
+  { path: 'add-member', loadChildren: './pages/add-member/add-member.module#AddMemberPageModule' },
+  { path: 'details-evenement/:e_id', loadChildren: './pages/details-evenement/details-evenement.module#DetailsEvenementPageModule' },
+  // { path: 'details-asso', loadChildren: './pages/details-asso/details-asso.module#DetailsAssoPageModule' },
+  // { path: 'details-membre', loadChildren: './pages/details-membre/details-membre.module#DetailsMembrePageModule' },
+  { path: 'details-assisteur/:e_id', loadChildren: './pages/details-assisteur/details-assisteur.module#DetailsAssisteurPageModule' },
+  // tslint:disable-next-line: max-line-length
+  { path: 'details-institut-financiere/:a_id', loadChildren: './pages/details-institut-financiere/details-institut-financiere.module#DetailsInstitutPageModule' },
+  { path: 'details-pcn', loadChildren: './pages/details-pcn/details-pcn.module#DetailsPcnPageModule' },
+  { path: 'security', loadChildren: './pages/security/security.module#SecurityPageModule' },
+
+
+
+
+
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes),
+    CommonModule // <-- and this one
+  ],
+  exports: [RouterModule]
+})
+
+export class AppRoutingModule { }

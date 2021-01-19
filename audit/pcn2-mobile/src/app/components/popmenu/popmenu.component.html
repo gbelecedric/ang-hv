@@ -1,0 +1,24 @@
+<ion-fab vertical="bottom" horizontal="center" slot="" class="animated fadeInDown">
+  <ion-fab-button (click)="togglePopupMenu()">
+    <ion-ripple-effect></ion-ripple-effect>
+    <ion-icon name="apps"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<div class="popup-menu">
+  <div class="popup-menu-overlay" [ngClass]="{'in': openMenu}"></div>
+  <div class="popup-menu-panel" [ngClass]="{'in': openMenu}">
+    <div class="popup-menu-item" (click)="Association()">
+      <ion-icon name="home" slot="middle" size="large"></ion-icon>
+      <span>Association</span>
+    </div>
+    <div class="popup-menu-item" (click)="Propos()">
+      <ion-icon name="information-circle-outline" slot="middle" size="large"></ion-icon>
+      <span>A Propos</span>
+    </div>
+    <div class="popup-menu-item" (click)="Parametres()">
+      <ion-icon name="cog" slot="middle" size="large"></ion-icon>
+      <span>Paramètres</span>
+    </div>
+  </div>
+</div>
