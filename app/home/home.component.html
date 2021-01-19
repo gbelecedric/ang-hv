@@ -1,0 +1,29 @@
+<form #userForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+  {{ userForm.value | json }}
+  <hr>
+  {{ userModel | json }}
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" required #email="ngModel" name="email" [(ngModel)]="userModel.email" class="form-control" id="exampleInputEmail1"
+         [class.is-invalid]="email.invalid && email.touched"   aria-describedby="emailHelp" placeholder="Enter email">
+  </div>
+  <div class="form-group">
+    <label for="num">num</label>
+    <input type="tel" required #num="ngModel" pattern="^\d{10}$" [class.is-invalid]="num.invalid && num.touched" name="num" [(ngModel)]="userModel.num"
+           class="form-control" id="num" placeholder="Numéro">
+    <div *ngIf="num.errors && (num.valid || num.touched)">
+      <p class="text-danger" *ngIf="num.errors.required">numéro requis!</p>
+      <p class="text-danger" *ngIf="num.errors.pattern">numéro non valide!</p>
+
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" name="password" [(ngModel)]="userModel.password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" name="check" [(ngModel)]="userModel.isSubscribe" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Subscribe</label>
+  </div>
+  <button type="submit" [disabled]="userForm.form.invalid" class="btn btn-primary">Submit</button>
+</form>

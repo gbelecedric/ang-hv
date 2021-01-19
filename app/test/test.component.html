@@ -1,0 +1,11 @@
+<div>
+  <nav>
+    <ul>
+      <li *ngFor="let p of data; first as f" (click)="go(p)">
+        {{ p.name }} : {{ p.age }}
+      </li>
+    </ul>
+  </nav>
+</div>
+<p><button (click)="fireEvent()">click</button></p>
+
